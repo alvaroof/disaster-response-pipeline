@@ -40,7 +40,7 @@ Please remember that the above web address will only work if you are running thi
 
 Below there is an example of how the app looks like. To classify a new message, you just need to write it on the text box and click ont he button.
 
-![](Captura.png)
+![screnshot](https://github.com/alvaroof/disaster-response-pipeline/blob/master/Captura.PNG)
 
 
 
