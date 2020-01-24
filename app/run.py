@@ -1,6 +1,7 @@
 import json
 import plotly
 import pandas as pd
+import numpy as np
 
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
@@ -12,6 +13,8 @@ from sklearn.externals import joblib
 from sqlalchemy import create_engine
 
 import re
+import nltk
+nltk.download('stopwords')
 from nltk.corpus import stopwords
 
 app = Flask(__name__)
@@ -55,6 +58,8 @@ def index():
     # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
+    category_counts = np.round(df.iloc[:,3:].sum().sort_values(ascending =True)/df.shape[0]*100,2)
+    category_names = list(category_counts.index)
     
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
@@ -74,6 +79,25 @@ def index():
                 },
                 'xaxis': {
                     'title': "Genre"
+                }
+            }
+        },
+        {
+            'data': [
+                Bar(
+                    x=category_counts,
+                    y=category_names,
+                    orientation='h'
+                )
+            ],
+
+            'layout': {
+                'title': 'Distribution of Categories in available data',
+                'yaxis': {
+                    'title': ""
+                },
+                'xaxis': {
+                    'title': "Percentage of Messages"
                 }
             }
         }
