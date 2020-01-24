@@ -23,6 +23,7 @@ import pickle
 
 
 def load_data(database_filepath):
+    """Load Message data from sql database"""
     # load data from database
     engine = create_engine('sqlite:///' + database_filepath)
     df = pd.read_sql_table('main_table', engine)
@@ -43,6 +44,7 @@ def load_data(database_filepath):
 
                    
 def tokenize(text):
+    """Tokenize function used along CountVectorizer()"""
     text = re.sub(r'[^a-zA-Z0-9]'," ",text.lower())
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
@@ -55,11 +57,19 @@ def tokenize(text):
 
                    
 def build_model():
+    """Define ML pipeline. CVGridsearh is also included"""
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()),
         ('clf', RandomForestClassifier())
     ])
+    
+    parameters = {
+        'vect__max_df':[0.75,1.0],
+        'clf__n_estimators':[10,20]
+    }
+
+    pipeline = GridSearchCV(pipeline, param_grid=parameters, verbose=10)
     return pipeline
 
 
@@ -82,13 +92,14 @@ def build_model():
          
                    
 def evaluate_model(model, X_test, Y_test, category_names):
-                
+    """Print classification report for the model fitted using the input data"""
     Y_pred = model.predict(X_test)
     for i,col in enumerate(Y_test.columns):
         print('CATEGORY: {}\n'.format(col))
         print(classification_report(Y_test[col].values, pd.DataFrame(Y_pred).iloc[:,i]))
                    
 def save_model(model, model_filepath):
+    """Convert model to pickle object and save it locally"""
     with open(model_filepath,'wb') as file:
         pickle.dump(model, file)
 
@@ -103,6 +114,7 @@ def main():
         model = build_model()
         
         print('Training model...')
+        print('This may take a while. A grid search is performed to optimize the model.')
         model.fit(X_train, Y_train)
         
         print('Evaluating model...')

@@ -17,6 +17,12 @@ This project serves as the second deliverable in the Data Science Nanodegree @ U
     
 ## Installation and File Descriptions <a name="file"></a>
 
+The project is comprised of three different folders:
+
+* data: contains the csv with the raw message and category information. There is also a script process_data.py to process it.
+* model: holds a train_classifier.py script to take the processed data from the previous folder and train a model. Such a model is then stored in this folder as a pickle object.
+* app: contains the necesary information for the Flask app to run.
+
 ### Instructions:
 1. Run the following commands in the project's root directory to set up your database and model.
 
@@ -32,9 +38,9 @@ This project serves as the second deliverable in the Data Science Nanodegree @ U
 
 Please remember that the above web address will only work if you are running this code on your local machine. Otherwise you would need to replace 0.0.0.0 by tyour server or remote IP address.
 
-Below there is an example of how the app looks like. To classify a new message, you just need to write it on the text box and click on the button.
+Below there is an example of how the app looks like. To classify a new message, you just need to write it on the text box and click ont he button.
 
-![screenshot](https://github.com/alvaroof/disaster-response-pipeline/blob/master/Captura.PNG)
+![](Captura.png)
 
 
 

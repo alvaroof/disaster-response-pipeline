@@ -6,6 +6,7 @@ from sqlalchemy import create_engine
 
 
 def load_data(messages_filepath, categories_filepath):
+    """Read in the messages and categories files"""
     # load messages dataset
     messages = pd.read_csv(messages_filepath)
 #     messages = messages.drop(columns='original')
@@ -20,6 +21,7 @@ def load_data(messages_filepath, categories_filepath):
 
 
 def clean_data(df):
+    """Process data so that it is in a suitable format to be used within a ML pipeline"""
     # create a dataframe of the 36 individual category columns
     categories = df['categories'].str.split(';', expand=True)
     row = categories.iloc[0]
@@ -55,6 +57,7 @@ def clean_data(df):
     return df
 
 def save_data(df, database_filename):
+    """Create SQL DB and store the processed data in the form of a table"""
     engine = create_engine('sqlite:///' + database_filename)
     try:
         df.to_sql('main_table', engine, index=False, if_exists='replace')  
