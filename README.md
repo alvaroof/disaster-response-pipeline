@@ -32,9 +32,9 @@ This project serves as the second deliverable in the Data Science Nanodegree @ U
 
 Please remember that the above web address will only work if you are running this code on your local machine. Otherwise you would need to replace 0.0.0.0 by tyour server or remote IP address.
 
-Below there is an example of how the app looks like. To classify a new message, you just need to write it on the text box and click ont he button.
+Below there is an example of how the app looks like. To classify a new message, you just need to write it on the text box and click on the button.
 
-![](Captura.png)
+![screenshot](https://github.com/alvaroof/disaster-response-pipeline/blob/master/Captura.PNG)
 
 
 
